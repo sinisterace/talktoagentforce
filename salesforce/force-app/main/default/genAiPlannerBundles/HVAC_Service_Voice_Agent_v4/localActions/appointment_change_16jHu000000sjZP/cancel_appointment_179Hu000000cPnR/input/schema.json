@@ -1,0 +1,28 @@
+{
+  "required" : [ "appointmentNumber", "callbackPhone" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "appointmentNumber" : {
+      "title" : "Appointment Number",
+      "description" : "Confirmation number of the appointment to cancel.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "The phone number the appointment was booked under. Required: nothing is cancelled unless its last four digits match the record.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "reason" : {
+      "title" : "Reason",
+      "description" : "Why the caller is cancelling.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,46 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "balanceSummary" : {
+      "title" : "Balance Summary",
+      "description" : "One or two spoken sentences answering what the caller asked, money in words.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "cardIsLocked" : {
+      "title" : "Card Is Locked",
+      "description" : "True only if this session has locked the card. Internal.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "cardSummary" : {
+      "title" : "Card Summary",
+      "description" : "Credit card balance, available credit, and minimum due with its due date, spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "checkingSummary" : {
+      "title" : "Checking Summary",
+      "description" : "Everyday checking balance and available, spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "savingsSummary" : {
+      "title" : "Savings Summary",
+      "description" : "Savings balance, spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

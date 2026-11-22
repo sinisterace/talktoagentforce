@@ -1,0 +1,1198 @@
+/*
+ * One stylesheet for the whole app. No CSS framework: the entire surface is
+ * five screens, and the two interesting visuals are WebGL canvases that a
+ * utility-class library has no opinion about.
+ *
+ * Mobile is the primary target — a prospect opens the link on a phone and taps
+ * once. Everything is a single column sized in `dvh`/`svh` so the iOS toolbar
+ * appearing mid-call cannot push the call button off screen, and the desktop
+ * layout is the same column centred with the blueprint promoted to a side rail.
+ */
+
+:root {
+  /* Surfaces, darkest first. The dot grid sits on --bg. */
+  --bg: #05060a;
+  --surface: rgba(255, 255, 255, 0.045);
+  /* Opaque, not translucent: the blueprint panel is dense text stacked over the
+     call screen's own dense text, and `backdrop-filter` is not reliable enough
+     to lean on for legibility — where it is unsupported, the two layers read
+     through each other and neither is readable. */
+  --surface-strong: #0b0e17;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-soft: rgba(255, 255, 255, 0.055);
+
+  --text: #f2f4f8;
+  --text-dim: #98a0b3;
+  --text-faint: #646c7e;
+
+  /* State colours. The visitor is cool, the agent is warm — the same split the
+     strands use, so the colour alone tells you who is talking. */
+  --visitor: #22d3ee;
+  --agent: #a78bfa;
+  --thinking: #fbbf24;
+  --danger: #f87171;
+
+  --dot-base: #161c2b;
+  --dot-active: #3b82f6;
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  --pad: 20px;
+  /* Width of the blueprint rail on desktop; the call column is padded by it. */
+  --bp-rail: 420px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+
+  --font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  /* The app owns the viewport; nothing scrolls except the panes that say so. */
+  overscroll-behavior: none;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ------------------------------------------------------------------ shell --- */
+
+.shell {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+/* The dot grid is fixed rather than absolute so it never repaints on scroll. */
+.shell__bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* A vignette keeps the dots from competing with text in the middle. */
+  mask-image: radial-gradient(130% 90% at 50% 0%, #000 25%, rgba(0, 0, 0, 0.25) 100%);
+  -webkit-mask-image: radial-gradient(130% 90% at 50% 0%, #000 25%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.shell__content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* ------------------------------------------------------------------- home --- */
+
+.home {
+  flex: 1;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(28px, 7vh, 72px) var(--pad) calc(48px + var(--safe-b));
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.home__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.home__title {
+  margin: 10px 0 0;
+  font-size: clamp(2rem, 8vw, 3.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.home__title em {
+  font-style: normal;
+  background: linear-gradient(96deg, var(--visitor), var(--agent) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.home__lede {
+  margin: 14px 0 0;
+  max-width: 46ch;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+/* One column on a phone, two from tablet up. Ten templates change nothing. */
+.home__grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .home__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Each tile carries `--accent` inline from the registry; everything tinted on a
+   tile reads from that one property, so a new industry needs no new CSS. */
+.tile {
+  --accent: var(--visitor);
+}
+
+.tile__row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+/* The icon art is a 3D render on a baked grey studio backdrop — it has no
+   transparency to work with. So it is framed as a deliberate plate: clipped to a
+   squircle, rimmed in the industry accent, and lifted off the tile with a soft
+   accent glow. Left as a bare <img> it reads as a light grey square dropped on a
+   near-black page, which is exactly what it looked like before this rule. */
+.tile__icon {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--accent) 18%, transparent);
+  /* The renders are lit brighter than this page; dialling saturation up and
+     brightness down slightly settles them onto the dark surface. */
+  filter: saturate(1.08) brightness(0.94);
+}
+
+.tile__label {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.06rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.tile__blurb {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.tile__go {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent);
+  font-size: 0.9rem;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.specular-button--card:hover .tile__go {
+  transform: translateX(2px);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+/* Templates with art but no deployed agent. Same geometry as a live tile so the
+   grid stays even, visibly inert so nobody taps it expecting a call. */
+.tile--soon {
+  padding: 20px 22px;
+  border: 1px dashed var(--hairline-soft);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.tile--soon .tile__icon {
+  filter: saturate(0.32) brightness(0.6);
+  box-shadow: none;
+}
+
+.tile--soon .tile__label {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.tile--soon .tile__blurb {
+  color: var(--text-faint);
+}
+
+.tile__soon {
+  flex: none;
+  padding: 4px 9px;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 999px;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.home__soon {
+  padding: 20px 22px;
+  border: 1px dashed var(--hairline-soft);
+  border-radius: var(--radius-md);
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.home__foot {
+  margin-top: auto;
+  padding-top: 20px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-faint);
+}
+
+/* ------------------------------------------------------------------- call --- */
+
+/* Fills the shell, never taller: `min-height: 100dvh` here would stack a full
+   viewport of call screen and then push the transcript sheet off the bottom of
+   the phone, which is exactly where it must not be. `min-height: 0` lets the
+   stage be the thing that shrinks. */
+.call {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Exactly one viewport, never more: opening the transcript should shrink the
+     strands, not push the controls off the bottom of the phone. `min-height` in
+     place of `height` would do the latter, and `min-height: 0` alone lets the
+     sheet grow the page so the call button scrolls out of reach. */
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.call__topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px var(--pad) 0;
+}
+
+.call__back {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 8px 10px 8px 0;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.call__back:hover {
+  color: var(--text);
+}
+
+/* Same framed plate as the home tile, at the size the topbar has room for —
+   it carries the industry identity into the call so the screen the visitor
+   spends the whole demo on is not anonymous. */
+.call__icon {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  filter: saturate(1.08) brightness(0.94);
+}
+
+.call__heading {
+  flex: 1;
+  min-width: 0;
+}
+
+.call__name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.call__state {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  transition: color 0.25s ease;
+}
+
+/* Inherits the state colour, so the dot and the word always agree. */
+.call__dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+}
+
+.call__dot--live {
+  opacity: 1;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.call__state--listening {
+  color: var(--visitor);
+}
+.call__state--speaking {
+  color: var(--agent);
+}
+.call__state--thinking {
+  color: var(--thinking);
+}
+.call__state--error {
+  color: var(--danger);
+}
+
+/* The layout: strands take the space nobody else claimed. */
+.call__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0 var(--pad);
+}
+
+.call__stage {
+  position: relative;
+  flex: 1;
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+}
+
+.call__strands {
+  position: absolute;
+  inset: 0;
+}
+
+/* Live caption of the current turn, sitting BELOW the strand band rather than
+   centred on it. The shader draws its band through the vertical middle of the
+   canvas, which is exactly where `place-items: center` would put the text — the
+   glow then runs through the words and neither is readable. */
+.call__caption {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  max-width: 30ch;
+  margin: 0;
+  padding: 0 6px clamp(10px, 9vh, 64px);
+  text-align: center;
+  font-size: clamp(1.02rem, 4.4vw, 1.28rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(5, 6, 10, 0.9);
+  transition: opacity 0.2s ease;
+}
+
+.call__caption--interim {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Pre-call: the prompt line plus the starters, as one block sitting where the
+   caption alone used to. Same `align-self: end` reason — clear of the strands. */
+.call__intro {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: clamp(6px, 5vh, 40px);
+}
+
+.call__intro .call__caption {
+  align-self: auto;
+  padding-bottom: 0;
+}
+
+.starters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.starters__label {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.starters__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Not buttons. There is no conversation to send them to until the visitor taps
+   call, and a tappable-looking line that does nothing is worse than a plain one.
+   They are quotes to read aloud, so they are styled as quotes. */
+.starters__item {
+  max-width: 34ch;
+  padding: 8px 14px;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--text-dim);
+  text-shadow: 0 2px 18px rgba(5, 6, 10, 0.9);
+}
+
+.call__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Wraps rather than squeezing: "Call the HVAC Service Agent" plus "Look
+     inside" does not fit one 390px row, and a flex row without `wrap` shrinks
+     the pill until the label breaks mid-word. */
+  flex-wrap: wrap;
+  gap: 12px 14px;
+  /* The transcript sheet sits below this and carries the safe-area inset. */
+  padding: 18px 0;
+}
+
+/* The label is the button's width — never let it break across lines inside a
+   pill whose WebGL rim is drawn for a single-line box. */
+.call__controls .specular-button__label {
+  white-space: nowrap;
+}
+
+.call__hangup {
+  --sb-radius: 999px;
+}
+
+.call__composer {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 12px;
+}
+
+.call__composer input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 16px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  outline: none;
+}
+
+.call__composer input:focus {
+  border-color: color-mix(in srgb, var(--visitor) 50%, transparent);
+}
+
+/* --------------------------------------------------------------- banners --- */
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px var(--pad) 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+}
+
+/* Reconnecting is normal — a phone waking up does it. Amber, not red, and the
+   wording says what the visitor should do (nothing) rather than what broke. */
+.banner--info {
+  border-color: color-mix(in srgb, var(--thinking) 40%, transparent);
+  background: color-mix(in srgb, var(--thinking) 11%, transparent);
+  color: color-mix(in srgb, var(--thinking) 82%, white);
+}
+
+.banner--error {
+  border-color: color-mix(in srgb, var(--danger) 45%, transparent);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  color: color-mix(in srgb, var(--danger) 85%, white);
+}
+
+.banner__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ------------------------------------------------------------- transcript --- */
+
+.sheet {
+  flex: none;
+  margin: 0 var(--pad) calc(10px + var(--safe-b));
+  overflow: hidden;
+}
+
+.sheet__toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sheet__toggle:hover .sheet__title {
+  color: var(--text);
+}
+
+.sheet__title {
+  flex: 1;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  transition: color 0.2s ease;
+}
+
+.sheet__count {
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+}
+
+.sheet__chev {
+  color: var(--text-faint);
+  transition: transform 0.22s ease;
+}
+
+.sheet__chev--open {
+  transform: rotate(180deg);
+}
+
+.sheet__body {
+  max-height: min(34dvh, 300px);
+  overflow-y: auto;
+  padding: 0 16px 14px;
+  border-top: 1px solid var(--hairline-soft);
+  /* Momentum scrolling inside the sheet without dragging the page behind it. */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.turn {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--hairline-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.turn:last-child {
+  border-bottom: 0;
+}
+
+.turn__who {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.turn--visitor .turn__who {
+  color: var(--visitor);
+}
+
+.turn--agent .turn__who {
+  color: var(--agent);
+}
+
+.sheet__empty {
+  padding: 14px 0 4px;
+  font-size: 0.86rem;
+  color: var(--text-faint);
+}
+
+/* -------------------------------------------------------------- blueprint --- */
+
+/* On a phone it is a bottom sheet over the call; from 1024px it becomes a rail
+   beside it, so a prospect can watch the config while they talk. */
+.bp {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.bp__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(3, 4, 8, 0.78);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.bp__panel {
+  position: fixed;
+  z-index: 41;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 86dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-strong);
+  border-top: 1px solid var(--hairline);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  padding-bottom: var(--safe-b);
+  animation: sheet-up 0.24s ease-out;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+.bp__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px 12px;
+}
+
+.bp__titles {
+  flex: 1;
+  min-width: 0;
+}
+
+.bp__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.bp__sub {
+  margin: 4px 0 0;
+  font-size: 0.79rem;
+  line-height: 1.45;
+  color: var(--text-dim);
+}
+
+.bp__close {
+  flex: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: none;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.bp__close:hover {
+  color: var(--text);
+}
+
+.bp__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 18px 12px;
+}
+
+.chip {
+  padding: 5px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.chip--apex {
+  border-color: color-mix(in srgb, var(--agent) 40%, transparent);
+  color: color-mix(in srgb, var(--agent) 85%, white);
+}
+
+.bp__tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--hairline-soft);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.bp__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.bp__tab {
+  appearance: none;
+  flex: none;
+  padding: 11px 12px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.bp__tab:hover {
+  color: var(--text-dim);
+}
+
+.bp__tab--on {
+  color: var(--text);
+  border-bottom-color: var(--visitor);
+}
+
+.bp__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px 18px 26px;
+}
+
+.bp__note {
+  margin: 0 0 16px;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-faint);
+}
+
+/* ------------------------------------------------ blueprint filter + folds --- */
+
+.bp__filter {
+  position: relative;
+  display: flex;
+  padding: 12px 18px 0;
+}
+
+.bp__filter input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 34px 9px 13px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--hairline-soft);
+  border-radius: 999px;
+  font-size: 0.83rem;
+  outline: none;
+}
+
+.bp__filter input::placeholder {
+  color: var(--text-faint);
+}
+
+.bp__filter input:focus {
+  border-color: color-mix(in srgb, var(--visitor) 45%, transparent);
+}
+
+/* Safari draws its own search affordances inside type="search". */
+.bp__filter input::-webkit-search-decoration,
+.bp__filter input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.bp__filter-clear {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  width: 30px;
+  height: 36px;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.bp__filter-clear:hover {
+  color: var(--text);
+}
+
+.bp__empty {
+  margin: 6px 0 0;
+  padding: 16px 0;
+  font-size: 0.85rem;
+  color: var(--text-faint);
+}
+
+/* A collapsed config card. Same surface as `.card`, but the whole header row is
+   the toggle, so the tap target is the width of the panel. */
+.fold {
+  margin-bottom: 10px;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.fold__summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 13px 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* The default disclosure triangle, removed in favour of the rotating chevron. */
+.fold__summary::-webkit-details-marker,
+.fold__summary::marker {
+  display: none;
+  content: '';
+}
+
+.fold__summary:hover {
+  background: rgba(255, 255, 255, 0.022);
+}
+
+.fold__summary:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--visitor) 55%, transparent);
+  outline-offset: -2px;
+}
+
+.fold__chev {
+  flex: none;
+  margin-top: 1px;
+  color: var(--text-faint);
+  font-size: 0.86rem;
+  transition: transform 0.2s ease;
+}
+
+.fold[open] .fold__chev {
+  transform: rotate(90deg);
+}
+
+.fold__head {
+  flex: 1;
+  min-width: 0;
+}
+
+.fold__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* The whole point of collapsing: the shape of a topic — how many hand-offs, how
+   many actions, how many guards — without opening it. */
+.fold__meta {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.fold__body {
+  padding: 0 15px 14px;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.fold__body > .card__desc:first-child,
+.fold__body > *:first-child {
+  margin-top: 12px;
+}
+
+.card {
+  padding: 14px 15px;
+  margin-bottom: 12px;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.card__name {
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.card__desc {
+  margin: 8px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.card__sub {
+  margin: 14px 0 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--hairline);
+  color: var(--text-faint);
+}
+
+.tag--router {
+  border-color: color-mix(in srgb, var(--visitor) 45%, transparent);
+  color: color-mix(in srgb, var(--visitor) 85%, white);
+}
+
+.tag--apex {
+  border-color: color-mix(in srgb, var(--agent) 45%, transparent);
+  color: color-mix(in srgb, var(--agent) 85%, white);
+}
+
+/* Instruction lines and guards read as what they are: authored text. */
+.lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lines li {
+  position: relative;
+  padding: 5px 0 5px 14px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.lines li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.cond {
+  display: block;
+  margin: 10px 0 2px;
+  padding: 5px 9px;
+  border-left: 2px solid color-mix(in srgb, var(--thinking) 60%, transparent);
+  background: color-mix(in srgb, var(--thinking) 8%, transparent);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--thinking) 80%, white);
+  word-break: break-word;
+}
+
+.pre {
+  margin: 0;
+  padding: 12px 13px;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.3);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: minmax(96px, auto) 1fr;
+  gap: 6px 14px;
+  font-size: 0.84rem;
+}
+
+.kv dt {
+  color: var(--text-faint);
+}
+
+.kv dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.79rem;
+  color: var(--text-dim);
+  word-break: break-word;
+}
+
+.params {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.param {
+  padding: 4px 8px;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.param b {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.param i {
+  font-style: normal;
+  color: var(--visitor);
+}
+
+/* Desktop: the panel is a fixed rail down the right edge and the call column
+   shrinks to sit beside it. Deliberately NOT a grid — the panel is a sibling of
+   the topbar/body/sheet, so a two-column grid gives each of those its own row
+   and the call screen ends up vertically centred against a full-height rail. */
+@media (min-width: 1024px) {
+  .call--with-bp {
+    padding-right: var(--bp-rail);
+  }
+
+  .bp__scrim {
+    display: none;
+  }
+
+  .bp__panel {
+    top: 0;
+    left: auto;
+    width: var(--bp-rail);
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border-top: 0;
+    border-left: 1px solid var(--hairline);
+    animation: none;
+  }
+}
+
+/* Phones: one column, and the call column never gets wider than a phone even
+   on a desktop, so the visual centre of gravity stays under the thumb. */
+@media (min-width: 640px) {
+  .call:not(.call--with-bp) .call__topbar,
+  .call:not(.call--with-bp) .call__body,
+  .call:not(.call--with-bp) .banner,
+  .call:not(.call--with-bp) .sheet {
+    width: 100%;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

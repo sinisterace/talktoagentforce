@@ -1,0 +1,28 @@
+{
+  "required" : [ "transactionRef", "sessionId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "reason" : {
+      "title" : "Reason",
+      "description" : "Why the caller is disputing, in their words.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "sessionId" : {
+      "title" : "Session Id",
+      "description" : "Session id. Required.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "transactionRef" : {
+      "title" : "Transaction Ref",
+      "description" : "Opaque token for the located charge, from get_recent_transactions. Required.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

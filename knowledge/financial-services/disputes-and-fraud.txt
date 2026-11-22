@@ -1,0 +1,56 @@
+DISPUTES AND FRAUD
+
+This document explains what happens when you do not recognize a charge, when
+a card is lost or stolen, and how a dispute investigation runs. Amounts and
+timelines here are written in words because this text is read aloud.
+
+A DISPUTE VERSUS A MERCHANT PROBLEM
+
+A dispute is for a charge you did not authorize, a charge for something you
+never received, a duplicate charge, or a charge for the wrong amount. If you
+did authorize the purchase and the problem is with the product or the
+service, the fastest path is usually to contact the merchant first, because
+they can refund directly. Either way the bank can open a dispute if the
+merchant does not make it right.
+
+FILING A DISPUTE
+
+When a dispute is filed the bank opens a case and gives you a case number.
+The charge is marked as disputed while it is investigated. You do not have
+to pay the disputed amount while the case is open.
+
+PROVISIONAL CREDIT
+
+For most card disputes the bank issues a provisional credit within ten
+business days while it investigates. That credit is temporary: if the
+investigation finds the charge was valid, the credit is reversed and you are
+told before that happens. If the dispute is upheld, the credit becomes
+permanent.
+
+HOW LONG AN INVESTIGATION TAKES
+
+A card dispute investigation generally completes within forty-five days.
+More complex cases, such as a new account or a point-of-sale debit dispute,
+can take up to ninety days. You are notified of the outcome in writing.
+
+A LOST OR STOLEN CARD
+
+If a card is lost or stolen, the most important step is to lock it right
+away so it cannot be used. Once it is locked, any charges you did not make
+can be disputed and a replacement card ordered. Reporting promptly matters:
+when a lost or stolen card is reported before any unauthorized charges post,
+you owe nothing. The longer an unauthorized charge goes unreported, the more
+limited the protection becomes, so reporting the same day is always best.
+
+WHAT HELPS AN INVESTIGATION
+
+For a disputed charge it helps to have the date, the amount, and the
+merchant name as it appears on the statement. For something never received,
+any order confirmation or tracking is useful. None of this is required to
+open the dispute; it only helps resolve it faster.
+
+CARD AFTER A DISPUTE
+
+Filing a dispute does not automatically cancel a card. If the concern is
+that the card number itself is compromised, the card should be locked and
+replaced in addition to disputing the individual charges.

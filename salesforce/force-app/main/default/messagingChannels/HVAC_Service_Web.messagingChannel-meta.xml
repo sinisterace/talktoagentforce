@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Dedicated Enhanced Messaging for Web / In-App channel for the HVAC Service
+  Voice Agent public demo. Separate from the org's shared
+  Messaging_for_In_App_Web channel so the other SDO demos in this org keep
+  their routing, and so agents 2 and 3 can each get their own channel without
+  colliding.
+
+  No customParameters block: visitors on the public link are anonymous, there is
+  nothing to carry in from the page, and custom prechat propagation is
+  platform-broken as of May 2026 anyway.
+-->
+<MessagingChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>HVAC Service Web</masterLabel>
+    <messagingChannelType>EmbeddedMessaging</messagingChannelType>
+    <automatedResponses>
+        <autoResponseContentType>TextResponse</autoResponseContentType>
+        <language>en_US</language>
+        <response>You&apos;ve opted out of receiving messages from us, so we won&apos;t contact you again.</response>
+        <type>OptOutConfirmation</type>
+    </automatedResponses>
+    <automatedResponses>
+        <autoResponseContentType>TextResponse</autoResponseContentType>
+        <language>en_US</language>
+        <response>Text STOP to opt out of further messages.</response>
+        <type>HelpResponse</type>
+    </automatedResponses>
+    <messagingKeywords>
+        <keyword>cancel</keyword>
+        <keyword>end</keyword>
+        <keyword>quit</keyword>
+        <keyword>stop</keyword>
+        <keyword>stopall</keyword>
+        <keyword>unsubscribe</keyword>
+        <keywordType>OptOut</keywordType>
+        <language>en_US</language>
+    </messagingKeywords>
+    <messagingKeywords>
+        <keyword>help</keyword>
+        <keywordType>Help</keywordType>
+        <language>en_US</language>
+    </messagingKeywords>
+    <sessionHandlerType>Flow</sessionHandlerType>
+    <sessionHandlerFlow>HVAC_Route_To_Voice_Agent</sessionHandlerFlow>
+    <sessionHandlerQueue>SDO_Service_Messaging</sessionHandlerQueue>
+</MessagingChannel>

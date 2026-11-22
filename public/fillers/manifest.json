@@ -1,0 +1,54 @@
+{
+  "openers": [
+    {
+      "id": "let-me-pull-that-up-one-second",
+      "text": "Let me pull that up, one second.",
+      "audio": "/fillers/let-me-pull-that-up-one-second.mp3",
+      "stamp": "ed2ebf4818d73c1b"
+    },
+    {
+      "id": "okay-let-me-check-our-system-on-that",
+      "text": "Okay, let me check our system on that.",
+      "audio": "/fillers/okay-let-me-check-our-system-on-that.mp3",
+      "stamp": "3f620f5654fd75c4"
+    },
+    {
+      "id": "give-me-just-a-moment-to-look-at-that",
+      "text": "Give me just a moment to look at that.",
+      "audio": "/fillers/give-me-just-a-moment-to-look-at-that.mp3",
+      "stamp": "360dfeb0cd729356"
+    },
+    {
+      "id": "let-me-find-that-for-you",
+      "text": "Let me find that for you.",
+      "audio": "/fillers/let-me-find-that-for-you.mp3",
+      "stamp": "a4bca98fa1e47d6a"
+    }
+  ],
+  "waits": [
+    {
+      "id": "still-looking-thanks-for-waiting",
+      "text": "Still looking, thanks for waiting.",
+      "audio": "/fillers/still-looking-thanks-for-waiting.mp3",
+      "stamp": "f4aec5b622cea0e2"
+    },
+    {
+      "id": "almost-there-bear-with-me",
+      "text": "Almost there, bear with me.",
+      "audio": "/fillers/almost-there-bear-with-me.mp3",
+      "stamp": "ecf41dca35209afb"
+    },
+    {
+      "id": "just-finishing-that-up",
+      "text": "Just finishing that up.",
+      "audio": "/fillers/just-finishing-that-up.mp3",
+      "stamp": "64dc653653700089"
+    },
+    {
+      "id": "nearly-done-one-more-second",
+      "text": "Nearly done, one more second.",
+      "audio": "/fillers/nearly-done-one-more-second.mp3",
+      "stamp": "fcf03a889c530abe"
+    }
+  ]
+}

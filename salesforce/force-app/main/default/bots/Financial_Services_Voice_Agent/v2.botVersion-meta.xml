@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BotVersion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>v2</fullName>
+    <articleAnswersGPTEnabled>false</articleAnswersGPTEnabled>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Thanks for calling. This is the financial services agent, and for this demo you&apos;re signed in as an existing customer, so I can look things up right away. How can I help?</message>
+                <messageIdentifier>f35a4a52-d867-4067-a82c-1dcb54f1fb7a</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>6491ffeb-6b43-47f7-8486-f77886af965e</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>b53bf3a1-fc9c-4e3b-8d9b-710baca39dbc</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Welcome</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Welcome</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Sorry, something went wrong on my end. Could you say that again?</message>
+                <messageIdentifier>4e33e397-6077-41b9-9e09-689607eeb0dd</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>003fedba-9a78-4e10-8c04-1fde95e37eef</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>9d55353c-0b88-4040-a4d0-78422abe6f88</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Rich_Content_Error_Handling</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Error Handler</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <conversationSystemMessage>
+                <type>Transfer</type>
+            </conversationSystemMessage>
+            <stepIdentifier>a34e9578-94f7-4a83-b338-04c0b17b7340</stepIdentifier>
+            <type>SystemMessage</type>
+        </botSteps>
+        <developerName>Transfer_To_Agent</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Transfer To Agent</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <citationsEnabled>false</citationsEnabled>
+    <conversationDefinitionPlanners>
+        <genAiPlannerName>Financial_Services_Voice_Agent_v2</genAiPlannerName>
+    </conversationDefinitionPlanners>
+    <conversationSystemDialogs>
+        <dialog>Rich_Content_Error_Handling</dialog>
+        <type>ErrorHandling</type>
+    </conversationSystemDialogs>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Which account the caller is asking about: checking, savings or credit card. Kept so follow-ups do not re-ask.</description>
+        <developerName>account_in_play</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Account In Play</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the regulated-advice decline has been said. Stops it repeating.</description>
+        <developerName>advice_boundary_said</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Advice Boundary Said</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The agent instructions</description>
+        <developerName>AgentScriptInternal_agent_instructions</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Agent Instructions</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>Runtime condition evaluation for if statements</description>
+        <developerName>AgentScriptInternal_condition_1</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Runtime Condition 1</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The next topic to be visited</description>
+        <developerName>AgentScriptInternal_next_topic</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Next Topic</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once a card lock has actually been written and a confirmation number returned. Gates the lock action for idempotency and releases the fraud gate. Set only from action output, never by reasoning.</description>
+        <developerName>card_secured</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Card Secured</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Which specialist step currently owns the conversation. Each step stamps this itself on entry, so the router can hand the caller straight back to it on the next turn instead of re-classifying. Never set by reasoning.</description>
+        <developerName>current_flow</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Current Flow</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The opaque token for the located charge, passed to file_dispute. Never spoken.</description>
+        <developerName>disputed_reference</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Disputed Reference</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The dispute case number, for read-back one digit at a time.</description>
+        <developerName>dispute_case_number</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Dispute Case Number</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once a dispute was written and a case number returned. Closes the dispute action so one complaint cannot be filed twice.</description>
+        <developerName>dispute_filed</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Dispute Filed</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the demo email boundary has been explained. Stops it repeating on every turn of the loan flow.</description>
+        <developerName>email_boundary_said</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Email Boundary Said</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True when the caller reports a lost or stolen card, compromised card or account details, or charges they did not make. Set by reasoning the moment the caller says any of these.</description>
+        <developerName>fraud_reported</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Fraud Reported</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Which seeded application is in play when the caller has more than one, either mortgage or auto.</description>
+        <developerName>loan_reference</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Loan Reference</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once a lookup returned the specific charge the caller is disputing. Gates file_dispute so nothing the caller merely described can be disputed.</description>
+        <developerName>transaction_located</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Transaction Located</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <copilotPrimaryLanguage>en_US</copilotPrimaryLanguage>
+    <defaultStdObjForContactIdFltrEnabled>false</defaultStdObjForContactIdFltrEnabled>
+    <entryDialog>Welcome</entryDialog>
+    <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
+    <intentV3Enabled>false</intentV3Enabled>
+    <isScriptCompatibleAgent>true</isScriptCompatibleAgent>
+    <knowledgeActionEnabled>false</knowledgeActionEnabled>
+    <knowledgeFallbackEnabled>false</knowledgeFallbackEnabled>
+    <smallTalkEnabled>false</smallTalkEnabled>
+    <staticPromptsEnabled>false</staticPromptsEnabled>
+    <stopRecPrompts>false</stopRecPrompts>
+    <stopWelcomePrompts>false</stopWelcomePrompts>
+    <surfacesEnabled>false</surfacesEnabled>
+    <toneType>Casual</toneType>
+</BotVersion>

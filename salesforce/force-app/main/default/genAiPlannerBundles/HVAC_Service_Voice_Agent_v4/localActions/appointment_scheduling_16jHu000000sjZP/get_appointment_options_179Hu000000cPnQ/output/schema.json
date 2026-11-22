@@ -1,0 +1,86 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "inServiceArea" : {
+      "title" : "In Service Area",
+      "description" : "True when the postal code is covered.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionOneId" : {
+      "title" : "Option One Id",
+      "description" : "Slot token for the first window. Never say this out loud.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionOneLabel" : {
+      "title" : "Option One Label",
+      "description" : "Natural language first window.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionsOffered" : {
+      "title" : "Options Offered",
+      "description" : "True when windows were returned and can be offered.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionsSummary" : {
+      "title" : "Options Summary",
+      "description" : "One spoken sentence offering the three windows.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionThreeId" : {
+      "title" : "Option Three Id",
+      "description" : "Slot token for the third window. Never say this out loud.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionThreeLabel" : {
+      "title" : "Option Three Label",
+      "description" : "Natural language third window.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionTwoId" : {
+      "title" : "Option Two Id",
+      "description" : "Slot token for the second window. Never say this out loud.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "optionTwoLabel" : {
+      "title" : "Option Two Label",
+      "description" : "Natural language second window.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "resolvedPostalCode" : {
+      "title" : "Resolved Postal Code",
+      "description" : "The five digit postal code these windows were computed for, so the booking cannot be made for a different one.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

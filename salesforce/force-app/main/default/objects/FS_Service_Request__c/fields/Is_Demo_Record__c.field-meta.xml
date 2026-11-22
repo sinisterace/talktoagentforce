@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Demo_Record__c</fullName>
+    <label>Is Demo Record</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <description>Financial Services voice demo field. Flag.</description>
+</CustomField>

@@ -1,0 +1,63 @@
+{
+  "required" : [ "callerName", "callbackPhone", "serviceAddress", "postalCode", "issueSummary" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "Callback phone number.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callerName" : {
+      "title" : "Caller Name",
+      "description" : "Caller's first name.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "hazardReported" : {
+      "title" : "Hazard Reported",
+      "description" : "True if a safety hazard was reported earlier on the call.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "issueSummary" : {
+      "title" : "Issue Summary",
+      "description" : "What the system is doing or not doing.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "postalCode" : {
+      "title" : "Postal Code",
+      "description" : "Postal code of the service address.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "propertyType" : {
+      "title" : "Property Type",
+      "description" : "residential or commercial.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "serviceAddress" : {
+      "title" : "Service Address",
+      "description" : "Street address and city of the property.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "sessionId" : {
+      "title" : "Session Id",
+      "description" : "Session id used to flag and reset demo records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

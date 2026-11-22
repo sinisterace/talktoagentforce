@@ -1,0 +1,9 @@
+# Kept in git, kept out of the dyno. None of this is read at runtime — the
+# blueprint panel is served from the pre-extracted public/blueprint/*.json, not
+# from the .agent source, and the greeting MP3s are pre-rendered into public/.
+salesforce
+docs
+specs
+knowledge
+legacy
+voicetest

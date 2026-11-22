@@ -1,0 +1,28 @@
+{
+  "required" : [ "callbackPhone" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "appointmentNumber" : {
+      "title" : "Appointment Number",
+      "description" : "The appointment confirmation number, if the caller has it.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "The phone number the appointment was booked under. Always required: a confirmation number on its own will not return an appointment.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callerName" : {
+      "title" : "Caller Name",
+      "description" : "Caller's first name.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

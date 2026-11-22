@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Server-to-server credentials for the Heroku voice demo's transcript logging.
+
+  The Heroku app uses the OAuth client-credentials flow with this app to write
+  Demo_Session__c and Demo_Turn__c rows. Client credentials is the only grant
+  that works with no human at a browser, and the secret never leaves the dyno.
+
+  Visitors themselves stay anonymous. They talk to Agentforce with a guest token
+  minted by the scrt2 endpoints, which this app has nothing to do with.
+
+  THREE SETTINGS ARE NOT EXPRESSIBLE IN METADATA and must be set once in Setup ->
+  App Manager -> Voice Demo Logger:
+    1. Edit  -> "Enable Client Credentials Flow" (checkbox under API / OAuth
+       Settings). This is the whole point of the app; without it the token
+       request returns unsupported_grant_type.
+    2. Manage -> Edit Policies -> "Run As" = your integration/admin user, and
+       Permitted Users = "Admin approved users are pre-authorized".
+    3. Manage Consumer Details -> copy the key and secret into Heroku:
+       heroku config:set SF_CLIENT_ID=... SF_CLIENT_SECRET=... -a talktoagentforce
+
+  The callback URL is required by the schema but unused: the client-credentials
+  flow never redirects a browser anywhere.
+-->
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>admin@example.com</contactEmail>
+    <description>Server-to-server credentials for the Heroku voice demo to log Demo_Session__c and Demo_Turn__c transcripts. Client-credentials flow only.</description>
+    <label>Voice Demo Logger</label>
+    <oauthConfig>
+        <callbackUrl>https://your-app.herokuapp.com/oauth/callback</callbackUrl>
+        <isAdminApproved>true</isAdminApproved>
+        <scopes>Api</scopes>
+    </oauthConfig>
+</ConnectedApp>

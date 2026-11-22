@@ -1,0 +1,45 @@
+{
+  "name": "agentforce-voice-agents",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Public voice demo for Agentforce industry agents. Browser mic in, ElevenLabs voice out, Agentforce does all the reasoning.",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p ${PORT:-3000}",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:client && npm run test:ratelimit && npm run test:fillers && npm run test:scrub",
+    "test:client": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/test-client.mjs",
+    "test:ratelimit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/test-rate-limit.mjs",
+    "test:fillers": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/test-fillers.mjs",
+    "test:scrub": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/test-scrub.mjs",
+    "greetings": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-greetings.mjs",
+    "greetings:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-greetings.mjs --check",
+    "blueprint": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/extract-blueprint.mjs",
+    "blueprint:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/extract-blueprint.mjs --check",
+    "fillers": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-fillers.mjs",
+    "fillers:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-fillers.mjs --check",
+    "icons": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-icons.mjs",
+    "icons:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-icons.mjs --check",
+    "audio": "npm run blueprint && npm run greetings && npm run fillers",
+    "audio:check": "npm run blueprint:check && npm run greetings:check && npm run fillers:check"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "next": "^16.2.10",
+    "ogl": "^1.0.11",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "playwright": "^1.61.1",
+    "typescript": "5.9.3"
+  }
+}

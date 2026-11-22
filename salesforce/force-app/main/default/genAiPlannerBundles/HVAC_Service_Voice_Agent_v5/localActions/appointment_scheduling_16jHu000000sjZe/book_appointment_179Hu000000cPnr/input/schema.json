@@ -1,0 +1,56 @@
+{
+  "required" : [ "callerName", "callbackPhone", "serviceAddress", "postalCode", "serviceType", "slotId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "Callback phone number.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callerName" : {
+      "title" : "Caller Name",
+      "description" : "Caller's first name.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "postalCode" : {
+      "title" : "Postal Code",
+      "description" : "Postal code of the service address.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "serviceAddress" : {
+      "title" : "Service Address",
+      "description" : "Street address and city of the property.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "serviceType" : {
+      "title" : "Service Type",
+      "description" : "tune_up, maintenance, inspection or repair.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "sessionId" : {
+      "title" : "Session Id",
+      "description" : "Session id used to flag and reset demo records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "slotId" : {
+      "title" : "Slot Id",
+      "description" : "The slot token for the window the caller chose.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

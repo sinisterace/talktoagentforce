@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04131f">
+<title>Agentforce Voice Demo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main id="app">
+
+  <!-- Agent picker. Agents 2 and 3 appear here automatically from /api/config. -->
+  <section id="lobby" class="screen is-active">
+    <header class="lobby-head">
+      <p class="eyebrow">Live Agentforce agents</p>
+      <h1>Talk to an agent</h1>
+      <p class="sub">Pick an industry, tap the mic, and speak. No sign-in.</p>
+    </header>
+    <ul id="agent-list" class="agent-list"></ul>
+    <p class="disclosure">
+      Every answer comes from a live Agentforce agent reasoning in real time.
+      Speech recognition and the spoken voice run through your browser; in a
+      production deployment this same agent answers a phone number through
+      Agentforce Voice.
+    </p>
+  </section>
+
+  <!-- Call screen. -->
+  <section id="call" class="screen">
+    <header class="call-head">
+      <button id="back" class="icon-btn" aria-label="End and go back">&#8249;</button>
+      <div class="call-id">
+        <h2 id="call-title">Agent</h2>
+        <p id="call-status" class="status">connecting…</p>
+      </div>
+      <span id="live-dot" class="dot" aria-hidden="true"></span>
+    </header>
+
+    <div id="transcript" class="transcript" role="log" aria-live="polite"></div>
+
+    <div class="composer">
+      <div class="mic-wrap">
+        <button id="mic" class="mic" aria-label="Hold to talk">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 15a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 0 0-7 0v5.5A3.5 3.5 0 0 0 12 15Z"/>
+            <path d="M19 11.5a7 7 0 0 1-14 0M12 18.5V22"/>
+          </svg>
+        </button>
+        <p id="mic-hint" class="mic-hint">Hold to talk</p>
+      </div>
+      <form id="type-form" class="type-form">
+        <input id="type-input" autocomplete="off" placeholder="Or type a message">
+        <button type="submit" aria-label="Send">&#8593;</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

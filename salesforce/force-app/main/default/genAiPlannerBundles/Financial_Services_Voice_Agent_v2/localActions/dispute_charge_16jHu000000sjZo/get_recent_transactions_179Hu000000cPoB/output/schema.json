@@ -1,0 +1,86 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "matchedLabel" : {
+      "title" : "Matched Label",
+      "description" : "Set when the merchant hint identified exactly one charge, spoken back to confirm.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "matchedRef" : {
+      "title" : "Matched Ref",
+      "description" : "Token for the matched charge, passed to file_dispute. Never spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "matchFound" : {
+      "title" : "Match Found",
+      "description" : "True only when the merchant hint matched exactly one charge. Internal.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "oneLabel" : {
+      "title" : "One Label",
+      "description" : "First charge: merchant, spoken amount, relative date.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "oneRef" : {
+      "title" : "One Ref",
+      "description" : "Opaque token for charge one. Never spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "threeLabel" : {
+      "title" : "Three Label",
+      "description" : "Third charge.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "threeRef" : {
+      "title" : "Three Ref",
+      "description" : "Opaque token for charge three. Never spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "transactionsSummary" : {
+      "title" : "Transactions Summary",
+      "description" : "The three most recent charges as one spoken sentence, dates relative, amounts in words.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "twoLabel" : {
+      "title" : "Two Label",
+      "description" : "Second charge.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "twoRef" : {
+      "title" : "Two Ref",
+      "description" : "Opaque token for charge two. Never spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

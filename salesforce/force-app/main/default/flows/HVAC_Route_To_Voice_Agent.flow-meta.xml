@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Inbound routing flow for the HVAC Service Voice Agent web/in-app channel.
+
+  Deliberately minimal. Callers on the public Heroku demo link are anonymous and
+  unauthenticated, so there is no Contact to resolve, no Case to open, and no
+  prechat data to pivot on. Every branch the stock SDO_Service_MIAW_Omni_Flow
+  carries for identified visitors would be dead code here, so this flow makes a
+  single routeWork call that hands the session straight to the agent.
+
+  Kept separate from SDO_Service_MIAW_Omni_Flow so the other SDO demos sharing
+  this org are untouched.
+-->
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Hand the messaging session to the HVAC Service Voice Agent.</description>
+        <name>Route_to_HVAC_Agent</name>
+        <label>Route to HVAC Agent</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <actionName>routeWork</actionName>
+        <actionType>routeWork</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>recordId</name>
+            <value><elementReference>recordId</elementReference></value>
+        </inputParameters>
+        <inputParameters>
+            <name>serviceChannelId</name>
+            <value><stringValue>0N9Hu000001lroJKAQ</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>serviceChannelLabel</name>
+            <value><stringValue>Messaging</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>serviceChannelDevName</name>
+            <value><stringValue>sfdc_livemessage</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>routingType</name>
+            <value><stringValue>Copilot</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>queueId</name>
+            <value><stringValue>00GHu00000Et2tAMAR</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>queueLabel</name>
+            <value><stringValue>SDO Service Messaging</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>copilotId</name>
+            <value><stringValue>0XxHu000001hReMKAU</stringValue></value>
+        </inputParameters>
+        <inputParameters>
+            <name>copilotLabel</name>
+            <value><stringValue>HVAC Service Agent</stringValue></value>
+        </inputParameters>
+        <nameSegment>routeWork</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <interviewLabel>HVAC Route To Voice Agent {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>HVAC Route To Voice Agent</label>
+    <processType>RoutingFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Route_to_HVAC_Agent</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>The MessagingSession id, passed in by the channel.</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,42 @@
+{
+  "required" : [ "appointmentNumber", "changeType", "callbackPhone" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "appointmentNumber" : {
+      "title" : "Appointment Number",
+      "description" : "Confirmation number of the appointment to change.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "The phone number the appointment was booked under. Required: nothing is changed unless its last four digits match the record.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "changeType" : {
+      "title" : "Change Type",
+      "description" : "Either reschedule or cancel.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "newSlotId" : {
+      "title" : "New Slot Id",
+      "description" : "The new slot token, when rescheduling.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "reason" : {
+      "title" : "Reason",
+      "description" : "Why the caller is changing it.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

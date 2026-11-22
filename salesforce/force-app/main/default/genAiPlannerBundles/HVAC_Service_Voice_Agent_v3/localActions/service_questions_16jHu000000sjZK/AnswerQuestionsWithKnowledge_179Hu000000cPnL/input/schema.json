@@ -1,0 +1,36 @@
+{
+  "required" : [ "query" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "query" : {
+      "title" : "Query",
+      "description" : "The caller's question.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "citationsUrl" : {
+      "title" : "Citations Url",
+      "description" : "Base URL for citations.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "ragFeatureConfigId" : {
+      "title" : "Rag Feature Config Id",
+      "description" : "Retrieval configuration id for the knowledge library.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "citationsEnabled" : {
+      "title" : "Citations Enabled",
+      "description" : "Whether citations are returned.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

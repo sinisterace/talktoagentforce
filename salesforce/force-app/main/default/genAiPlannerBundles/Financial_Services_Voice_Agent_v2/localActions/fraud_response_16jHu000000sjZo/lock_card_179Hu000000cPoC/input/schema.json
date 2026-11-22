@@ -1,0 +1,28 @@
+{
+  "required" : [ "sessionId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "orderReplacement" : {
+      "title" : "Order Replacement",
+      "description" : "True if the caller wants a new card sent.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "reason" : {
+      "title" : "Reason",
+      "description" : "Why the caller is locking the card, in their words.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "sessionId" : {
+      "title" : "Session Id",
+      "description" : "Session id. Required.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

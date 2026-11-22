@@ -1,0 +1,35 @@
+{
+  "required" : [ "appointmentNumber", "callbackPhone", "newSlotId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "appointmentNumber" : {
+      "title" : "Appointment Number",
+      "description" : "Confirmation number of the appointment to move.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "The phone number the appointment was booked under. Required: nothing is moved unless its last four digits match the record.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "newSlotId" : {
+      "title" : "New Slot Id",
+      "description" : "The slot token for the window the caller chose, exactly as it came back from the reschedule options.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "reason" : {
+      "title" : "Reason",
+      "description" : "Why the caller is moving it.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

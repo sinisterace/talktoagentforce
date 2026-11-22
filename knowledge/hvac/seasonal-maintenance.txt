@@ -1,0 +1,75 @@
+SEASONAL MAINTENANCE — WHAT A VISIT INCLUDES
+
+WHAT A PRECISION TUNE-UP COVERS
+
+A tune-up is a scheduled inspection and adjustment visit, not a repair visit. It
+typically takes sixty to ninety minutes for a single residential system. The
+technician performs the following:
+
+Cooling tune-up (spring):
+- Measure refrigerant pressures and compare against the manufacturer's charging
+  chart for the current outdoor temperature.
+- Clean the outdoor condenser coil and clear debris from around the unit.
+- Inspect and clean the indoor evaporator coil where accessible.
+- Flush and treat the condensate drain line, test the float safety switch.
+- Measure the temperature difference across the indoor coil, which should
+  generally fall between sixteen and twenty-two degrees Fahrenheit.
+- Check capacitor microfarad values against rating and report any that have
+  drifted more than ten percent, since a weak capacitor is the single most common
+  cause of a mid-summer failure.
+- Measure compressor and fan motor amp draw against nameplate.
+- Tighten electrical connections and inspect contactor for pitting.
+- Replace the standard filter and confirm airflow.
+- Verify thermostat calibration and staging.
+
+Heating tune-up (fall):
+- Inspect the heat exchanger for cracks or corrosion. This is the most important
+  safety check of the visit; a cracked heat exchanger can admit combustion gases
+  into the airstream and the unit must be shut down until repaired or replaced.
+- Test flame characteristics, ignition sequence, and flame sensor microamp signal.
+- Measure gas pressure at the manifold and adjust to specification.
+- Test all safety controls including the limit switch, rollout switch, and
+  pressure switch.
+- Inspect the flue and venting for blockage, corrosion, and proper draft.
+- Measure temperature rise across the heat exchanger and compare to the nameplate
+  range.
+- Verify carbon monoxide levels in the supply air with a combustion analyzer.
+- Clean the burners and blower assembly.
+- Replace the standard filter and verify blower amp draw.
+- Confirm thermostat operation in heating and, if present, correct heat pump
+  changeover and auxiliary heat staging.
+
+Commercial rooftop visit:
+Adds belt tension and alignment, bearing lubrication where fittings exist,
+economizer damper and actuator operation, outside-air setpoints, and a written
+condition report per unit with photographs of any deficiency.
+
+RECOMMENDED SCHEDULE
+
+Cooling systems should be serviced in spring, before the first sustained stretch of
+weather above eighty-five degrees. Heating systems should be serviced in fall,
+before the first sustained stretch below fifty. Heat pumps, which run year round,
+should be serviced twice a year regardless of plan. Commercial rooftop units
+should be serviced at least twice a year and quarterly in dusty environments or
+where filter loading is heavy.
+
+Booking early in the season matters: the two weeks after the first heat wave and
+the first hard freeze are consistently our busiest, and scheduled maintenance
+slots fill first.
+
+WHY MAINTENANCE MATTERS
+
+The majority of no-heat and no-cool emergency calls we run are caused by
+conditions a tune-up would have caught: a weak capacitor, a loaded filter, a
+clogged condensate drain, a dirty flame sensor, a corroded contactor, or low
+refrigerant from a slow leak. Manufacturers also require documented annual
+maintenance to honor most parts warranties, so skipping it can void coverage on
+equipment that is otherwise still under warranty.
+
+WHAT HAPPENS IF WE FIND A PROBLEM
+
+The technician reports the finding, quotes the repair, and lets the customer
+decide. Nothing beyond the tune-up scope is performed without approval. The one
+exception is a safety condition — a cracked heat exchanger, unsafe combustion
+readings, or exposed live wiring — where the technician will red-tag and shut down
+the equipment and explain why before leaving.

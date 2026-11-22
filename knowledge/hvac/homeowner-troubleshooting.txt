@@ -1,0 +1,76 @@
+SAFE HOMEOWNER TROUBLESHOOTING
+
+These are the only checks we ask a customer to perform themselves. Everything else
+requires a technician. A customer should never open a sealed refrigerant circuit,
+work inside an electrical panel beyond resetting a breaker once, bypass a safety
+switch, or relight a pilot on equipment that smells of gas.
+
+THERMOSTAT IS BLANK OR UNRESPONSIVE
+
+Check whether the display is completely dark or showing a low-battery symbol.
+Replace the batteries if the thermostat takes them; most take two AA batteries
+behind the faceplate. If the thermostat is hardwired and blank, check the furnace
+or air handler's service switch, which looks like a normal light switch on or near
+the unit and is often flipped off accidentally. Then check the breaker labeled for
+the furnace, air handler, or air conditioner. Reset a tripped breaker once. If it
+trips again, stop and call us — a repeatedly tripping breaker indicates a fault,
+not a nuisance trip.
+
+Many furnaces also have a small door safety switch and a blocked-drain float
+switch that cut power when the access panel is off or the condensate pan is full.
+Confirm the access panel is fully seated.
+
+NO COOLING BUT THE FAN RUNS
+
+Check the filter first. A filter that is heavily loaded will restrict airflow
+enough to freeze the indoor coil, and a frozen coil stops cooling. Look at the
+refrigerant line where it enters the house; if it is coated in ice, turn the
+system to off but leave the fan on, and let it thaw for two to three hours before
+calling. Running a system with a frozen coil can damage the compressor.
+
+Also confirm the outdoor unit is running and is not blocked by leaves, grass
+clippings, or a cover left on from winter. Keep two feet of clearance on all sides.
+
+NO HEAT BUT THE THERMOSTAT IS CALLING FOR HEAT
+
+Confirm the thermostat is set to heat and the setpoint is above the current room
+temperature. Confirm the furnace service switch is on and the breaker is not
+tripped. On a gas furnace, look for a small indicator light behind the access
+panel; a steady light usually means normal, and a repeating blink pattern is a
+diagnostic code worth reporting to us because it tells the technician what to
+bring. If there is any smell of gas at all, stop, leave the building, and call 911
+or the gas utility from outside.
+
+For an oil or propane system, check that the tank is not empty. This is a common
+and non-obvious cause of a no-heat call.
+
+WATER AROUND THE INDOOR UNIT
+
+A small amount of water in the condensate pan is normal in cooling season. Water
+overflowing the pan or on the floor usually means a clogged condensate drain. Turn
+the system off to prevent further water damage and call us. Do not pour drain
+cleaner into a condensate line.
+
+SYSTEM RUNS CONSTANTLY AND NEVER REACHES SETPOINT
+
+In extreme weather this can be normal — most residential systems are sized to hold
+about twenty degrees of difference from outdoor temperature. Confirm the filter is
+clean, all supply registers are open, and return vents are not blocked by
+furniture. If the system is still short of setpoint by more than three degrees in
+moderate weather, it needs service.
+
+UNUSUAL NOISES AND WHAT THEY USUALLY MEAN
+
+A short metallic click at startup and shutdown is normal relay operation. A
+rhythmic squeal often indicates a belt or bearing. A loud bang at ignition on a
+gas furnace can indicate delayed ignition and should be reported promptly. A
+grinding or screeching from the outdoor unit usually indicates a failing fan motor
+bearing. Rattling often means a loose panel or debris in the outdoor unit.
+
+FILTERS
+
+Most residential systems use a one-inch filter that should be replaced every one
+to three months. Homes with pets or with construction dust need the shorter
+interval. Four- and five-inch media filters are typically replaced every six to
+twelve months. A filter with a very high MERV rating can restrict airflow on older
+equipment; MERV 8 to MERV 11 is a reasonable range for most residential systems.

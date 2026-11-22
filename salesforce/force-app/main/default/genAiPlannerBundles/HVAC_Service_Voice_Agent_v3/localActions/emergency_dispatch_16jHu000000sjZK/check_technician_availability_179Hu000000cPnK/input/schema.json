@@ -1,0 +1,28 @@
+{
+  "required" : [ "postalCode" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "issueSummary" : {
+      "title" : "Issue Summary",
+      "description" : "What the system is doing or not doing.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "postalCode" : {
+      "title" : "Postal Code",
+      "description" : "Postal code of the service address.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "propertyType" : {
+      "title" : "Property Type",
+      "description" : "residential or commercial.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

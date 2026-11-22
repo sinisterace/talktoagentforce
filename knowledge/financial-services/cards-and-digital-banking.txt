@@ -1,0 +1,49 @@
+CARDS AND DIGITAL BANKING
+
+This document covers locking and replacing a card, how quickly a new card
+arrives, travel notices, and what the mobile app can do. Amounts and
+timelines are written in words because this text is read aloud.
+
+LOCKING A CARD
+
+Locking a card stops new purchases, ATM withdrawals, and cash advances
+immediately. Payments you have already scheduled, like a recurring bill on
+that card, are not affected while it is locked, and neither are refunds or
+deposits. A lock is instant and can be turned off again if the card turns up.
+Locking is the right first step any time a card is missing or you see
+activity you do not recognize.
+
+REPLACING A CARD
+
+A replacement card arrives by standard mail in five to seven business days at
+no charge. Expedited shipping is available for a fifteen dollar fee and
+arrives in one to two business days. A new card has a new number, so any
+merchant you have set up to bill that card automatically will need the new
+number once it arrives.
+
+WHILE YOU WAIT FOR A NEW CARD
+
+The card in the mobile wallet updates to the new number automatically once
+the replacement is issued, so tap-to-pay and online purchases through the
+wallet keep working before the physical card arrives.
+
+TRAVEL
+
+A travel notice is no longer required. The bank uses the card location and
+spending patterns to recognize travel. It is still worth locking the card
+promptly if it goes missing on a trip, and a replacement can be shipped to a
+temporary address.
+
+CONTACTLESS AND DIGITAL WALLET
+
+Contactless tap-to-pay has a per-transaction limit of two hundred fifty
+dollars at most merchants before a PIN or a phone unlock is required. There
+is no daily cap on wallet spending beyond the account's own daily purchase
+limit.
+
+WHAT THE APP DOES
+
+The mobile app locks and unlocks a card, shows recent transactions, disputes
+a charge, orders a replacement, and sets travel and spending alerts. A few
+things still need a call or a branch: raising a daily limit, a wire transfer,
+and disputing a charge older than sixty days.

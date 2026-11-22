@@ -1,0 +1,28 @@
+{
+  "required" : [ "postalCode", "serviceType" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "postalCode" : {
+      "title" : "Postal Code",
+      "description" : "Postal code of the service address.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "preferredTimeframe" : {
+      "title" : "Preferred Timeframe",
+      "description" : "Any preference the caller mentioned, such as mornings, next week, or Friday.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "serviceType" : {
+      "title" : "Service Type",
+      "description" : "tune_up, maintenance, inspection or repair.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,28 @@
+{
+  "required" : [ "appointmentNumber", "callbackPhone" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "appointmentNumber" : {
+      "title" : "Appointment Number",
+      "description" : "Confirmation number of the appointment to move.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "callbackPhone" : {
+      "title" : "Callback Phone",
+      "description" : "The phone number the appointment was booked under. Required: no windows are returned unless its last four digits match the record.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "preferredTimeframe" : {
+      "title" : "Preferred Timeframe",
+      "description" : "Any preference the caller mentioned, such as mornings, next week, or Friday.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

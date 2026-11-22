@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--
+  Local voice tester for the HVAC Service Agent.
+
+  Talks to the HVAC_Service_Api Embedded Service deployment as an anonymous
+  guest: no login, no Salesforce session, nothing to configure. Browser
+  SpeechRecognition does STT, SpeechSynthesis does TTS, and Agentforce does all
+  the reasoning in between.
+
+  Serve it over http://localhost:8080 (that exact origin is CORS-whitelisted in
+  the org). Chrome only, because SpeechRecognition is still Chrome-flavoured.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HVAC Service Agent — voice test</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #0d1117; color: #e6edf3;
+  }
+  header { padding: 16px 20px; border-bottom: 1px solid #21262d; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; }
+  header p { margin: 4px 0 0; font-size: 13px; color: #8b949e; }
+  #log { flex: 1; overflow-y: auto; padding: 16px 20px; }
+  .turn { max-width: 78%; margin-bottom: 12px; padding: 10px 14px; border-radius: 14px; white-space: pre-wrap; }
+  .me    { margin-left: auto; background: #1f6feb; border-bottom-right-radius: 4px; }
+  .agent { background: #21262d; border-bottom-left-radius: 4px; }
+  .sys   { max-width: 100%; margin: 8px 0; padding: 0; font-size: 12px; color: #8b949e; font-family: ui-monospace, monospace; }
+  .err   { color: #f85149; }
+  footer { padding: 16px 20px 24px; border-top: 1px solid #21262d; display: flex; gap: 10px; align-items: center; }
+  button {
+    font: inherit; font-weight: 600; padding: 12px 18px; border: 0; border-radius: 10px;
+    background: #238636; color: #fff; cursor: pointer;
+  }
+  button:disabled { opacity: .45; cursor: default; }
+  #talk { flex: 1; padding: 16px; font-size: 17px; }
+  #talk.live { background: #da3633; }
+  #status { font-size: 13px; color: #8b949e; min-width: 92px; text-align: right; }
+  input {
+    flex: 1; font: inherit; padding: 12px 14px; border-radius: 10px;
+    border: 1px solid #30363d; background: #0d1117; color: inherit;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>HVAC Service Agent</h1>
+  <p>Anonymous guest session over Messaging for In-App &amp; Web. Chrome required.</p>
+</header>
+
+<div id="log"></div>
+
+<footer>
+  <button id="talk" disabled>Hold to talk</button>
+  <span id="status">connecting…</span>
+</footer>
+<footer style="padding-top:0;border:0">
+  <input id="typed" placeholder="…or type instead, then press Enter" disabled>
+  <button id="hangup" style="background:#30363d">End</button>
+</footer>
+
+<script type="module">
+// Pass your org's values in the URL:
+//   voicetest/index.html?scrt2=https://your-domain.my.salesforce-scrt.com&org=<15-char org id>&esc=HVAC_Service_Api
+const params = new URLSearchParams(location.search);
+const SCRT2 = params.get('scrt2') || 'https://your-domain.my.salesforce-scrt.com';
+const ORG_ID = (params.get('org') || '00Dxx0000000000').slice(0, 15);   // 15-char org id
+const ESC_NAME = params.get('esc') || 'HVAC_Service_Api';
+
+const logEl = document.getElementById('log');
+const talkBtn = document.getElementById('talk');
+const typedEl = document.getElementById('typed');
+const statusEl = document.getElementById('status');
+
+let token, conversationId, sseAbort;
+// The agent echoes the guest's own messages back over SSE, so track what we
+// sent and skip those entries rather than rendering each turn twice.
+const seenEntries = new Set();
+
+function say(text, cls) {
+  const d = document.createElement('div');
+  d.className = 'turn ' + cls;
+  d.textContent = text;
+  logEl.append(d);
+  logEl.scrollTop = logEl.scrollHeight;
+  return d;
+}
+const sys = (t, extra = '') => say(t, 'sys ' + extra);
+
+function speak(text) {
+  // Strip anything a phone caller would never hear: markdown, URLs, emoji.
+  const spoken = text.replace(/https?:\/\/\S+/g, '').replace(/[*_`#>|]/g, '').trim();
+  if (!spoken) return;
+  const u = new SpeechSynthesisUtterance(spoken);
+  u.rate = 1.05;
+  // Pause the mic while the agent is talking so it doesn't transcribe itself.
+  u.onstart = () => stopListening();
+  speechSynthesis.speak(u);
+}
+
+async function api(path, { method = 'POST', body, auth = true } = {}) {
+  const res = await fetch(SCRT2 + path, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(auth ? { Authorization: 'Bearer ' + token } : {}),
+    },
+    ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+  });
+  if (!res.ok) throw new Error(`${method} ${path} → ${res.status} ${await res.text()}`);
+  const raw = await res.text();
+  return raw ? JSON.parse(raw) : {};
+}
+
+// ── 1. guest token ── 2. conversation ── 3. SSE stream ───────────────────────
+async function connect() {
+  const auth = await api('/iamessage/api/v2/authorization/unauthenticated/access-token', {
+    auth: false,
+    body: { orgId: ORG_ID, esDeveloperName: ESC_NAME, capabilitiesVersion: '1', platform: 'Web' },
+  });
+  token = auth.accessToken;
+  sys('guest token issued');
+
+  conversationId = crypto.randomUUID();
+  await api('/iamessage/api/v2/conversation', {
+    body: { conversationId, esDeveloperName: ESC_NAME },
+  });
+  sys('conversation ' + conversationId.slice(0, 8));
+
+  streamEvents();
+  statusEl.textContent = 'ready';
+  talkBtn.disabled = false;
+  typedEl.disabled = false;
+}
+
+// EventSource can't send an Authorization header, so read the SSE stream by hand.
+async function streamEvents() {
+  sseAbort = new AbortController();
+  const res = await fetch(SCRT2 + '/eventrouter/v1/sse', {
+    headers: { Authorization: 'Bearer ' + token, Accept: 'text/event-stream', 'X-Org-Id': ORG_ID },
+    signal: sseAbort.signal,
+  });
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const frames = buffer.split('\n\n');
+    buffer = frames.pop();
+    for (const frame of frames) {
+      const line = frame.split('\n').find(l => l.startsWith('data:'));
+      if (line) handleEvent(line.slice(5).trim());
+    }
+  }
+}
+
+function handleEvent(data) {
+  let entry, payload;
+  try {
+    entry = JSON.parse(data).conversationEntry;
+    payload = JSON.parse(entry.entryPayload);
+  } catch { return; }
+  if (payload.entryType !== 'Message') return;
+  if (seenEntries.has(entry.identifier)) return;
+  seenEntries.add(entry.identifier);
+
+  const text = payload.abstractMessage?.staticContent?.text;
+  if (!text) return;
+  // Role Chatbot / EndUser distinguishes the agent from our own echoed turn.
+  if (entry.sender?.role === 'EndUser') return;
+  say(text, 'agent');
+  speak(text);
+}
+
+async function send(text) {
+  say(text, 'me');
+  statusEl.textContent = 'thinking…';
+  try {
+    await api(`/iamessage/api/v2/conversation/${conversationId}/message`, {
+      body: {
+        message: {
+          id: crypto.randomUUID(),
+          messageType: 'StaticContentMessage',
+          staticContent: { formatType: 'Text', text },
+        },
+        esDeveloperName: ESC_NAME,
+        isNewMessagingSession: false,
+      },
+    });
+  } catch (e) {
+    sys(e.message, 'err');
+  }
+  statusEl.textContent = 'ready';
+}
+
+// ── speech in ────────────────────────────────────────────────────────────────
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recog = null;
+
+function startListening() {
+  if (!SR) return sys('no SpeechRecognition in this browser — type instead', 'err');
+  speechSynthesis.cancel();
+  recog = new SR();
+  recog.lang = 'en-US';
+  recog.interimResults = true;
+  recog.continuous = false;
+  let finalText = '';
+  const bubble = say('…', 'me');
+  recog.onresult = e => {
+    let interim = '';
+    for (const r of e.results) (r.isFinal ? (finalText += r[0].transcript) : (interim += r[0].transcript));
+    bubble.textContent = (finalText + interim) || '…';
+  };
+  recog.onend = () => {
+    bubble.remove();
+    talkBtn.classList.remove('live');
+    talkBtn.textContent = 'Hold to talk';
+    if (finalText.trim()) send(finalText.trim());
+  };
+  recog.onerror = e => sys('mic: ' + e.error, 'err');
+  recog.start();
+  talkBtn.classList.add('live');
+  talkBtn.textContent = 'Listening — release to send';
+}
+
+function stopListening() {
+  if (recog) { recog.stop(); recog = null; }
+}
+
+for (const [down, up] of [['pointerdown', 'pointerup'], ['touchstart', 'touchend']]) {
+  talkBtn.addEventListener(down, e => { e.preventDefault(); startListening(); });
+  talkBtn.addEventListener(up, e => { e.preventDefault(); stopListening(); });
+}
+talkBtn.addEventListener('pointerleave', stopListening);
+
+typedEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && typedEl.value.trim()) {
+    send(typedEl.value.trim());
+    typedEl.value = '';
+  }
+});
+
+document.getElementById('hangup').addEventListener('click', async () => {
+  speechSynthesis.cancel();
+  stopListening();
+  sseAbort?.abort();
+  try {
+    await api(`/iamessage/api/v2/conversation/${conversationId}?esDeveloperName=${ESC_NAME}`, { method: 'DELETE' });
+    sys('conversation closed');
+  } catch (e) { sys(e.message, 'err'); }
+  talkBtn.disabled = typedEl.disabled = true;
+  statusEl.textContent = 'ended';
+});
+
+connect().catch(e => { sys(e.message, 'err'); statusEl.textContent = 'failed'; });
+</script>
+</body>
+</html>

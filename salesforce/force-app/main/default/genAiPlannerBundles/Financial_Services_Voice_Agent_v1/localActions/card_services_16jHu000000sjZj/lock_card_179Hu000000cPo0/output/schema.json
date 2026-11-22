@@ -1,0 +1,38 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "confirmationNumber" : {
+      "title" : "Confirmation Number",
+      "description" : "The lock confirmation number, read back digit by digit.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "lockSummary" : {
+      "title" : "Lock Summary",
+      "description" : "What is now blocked and what still works, spoken.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "replacementSummary" : {
+      "title" : "Replacement Summary",
+      "description" : "Replacement arrival window, matching the corpus, or empty if none ordered.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "wasLocked" : {
+      "title" : "Was Locked",
+      "description" : "True once the card is locked. Internal.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

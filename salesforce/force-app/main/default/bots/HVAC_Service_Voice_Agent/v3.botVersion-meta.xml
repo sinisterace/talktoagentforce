@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BotVersion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>v3</fullName>
+    <articleAnswersGPTEnabled>false</articleAnswersGPTEnabled>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Thanks for calling. This is the HVAC service agent. How can I help you today?</message>
+                <messageIdentifier>7aaf6652-eaac-4355-aaa5-041970a7d267</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>33c3cce8-9494-4d21-95fe-d58c90dcdcdd</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>439bd51e-ca95-47c5-912c-229c0caceebe</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Welcome</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Welcome</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Sorry, something went wrong on my end. Could you say that again?</message>
+                <messageIdentifier>1a14df24-731c-4477-be9a-bc41a2b9eaa3</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>7b82c95f-5b92-4c68-a8ea-85d8764bf026</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>d67e2a4e-343c-4814-8497-6e5fbffcc798</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Rich_Content_Error_Handling</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Error Handler</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <conversationSystemMessage>
+                <type>Transfer</type>
+            </conversationSystemMessage>
+            <stepIdentifier>42e8b730-d1d4-4eb5-a43b-381dcbc2ea22</stepIdentifier>
+            <type>SystemMessage</type>
+        </botSteps>
+        <developerName>Transfer_To_Agent</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Transfer To Agent</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <citationsEnabled>false</citationsEnabled>
+    <conversationDefinitionPlanners>
+        <genAiPlannerName>HVAC_Service_Voice_Agent_v3</genAiPlannerName>
+    </conversationDefinitionPlanners>
+    <conversationSystemDialogs>
+        <dialog>Rich_Content_Error_Handling</dialog>
+        <type>ErrorHandling</type>
+    </conversationSystemDialogs>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The agent instructions</description>
+        <developerName>AgentScriptInternal_agent_instructions</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Agent Instructions</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>Runtime condition evaluation for if statements</description>
+        <developerName>AgentScriptInternal_condition_1</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Runtime Condition 1</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The next topic to be visited</description>
+        <developerName>AgentScriptInternal_next_topic</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Next Topic</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True when an existing appointment was located.</description>
+        <developerName>appointment_found</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Appointment Found</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The confirmation number of an existing or newly created appointment.</description>
+        <developerName>appointment_number</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Appointment Number</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The phone number the booking is under, digits only. Used to stamp a new visit and to prove ownership before an existing one is changed. Never used to arrange a call back, because this line cannot do that.</description>
+        <developerName>callback_phone</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Callback Phone</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The caller&apos;s first name as they said it.</description>
+        <developerName>caller_name</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Caller Name</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Which specialist step currently owns the conversation. Each step stamps this itself on entry, so the router can hand the caller straight back to it on the next turn instead of re-classifying. Never set by reasoning.</description>
+        <developerName>current_flow</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Current Flow</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The spoken arrival window for an emergency dispatch.</description>
+        <developerName>dispatch_window</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Dispatch Window</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True only once the caller confirms everyone is outside and emergency services or the gas utility have been called. Starts false so an unanswered hazard can never look resolved.</description>
+        <developerName>hazard_cleared</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Hazard Cleared</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True if the caller reported a gas smell, carbon monoxide, a detector alarm, smoke, burning, sparking or arcing.</description>
+        <developerName>hazard_flag</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Hazard Flag</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The caller&apos;s plain description of what the system is doing or not doing.</description>
+        <developerName>issue_summary</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Issue Summary</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the caller has been told that plan answers are a what-if because their contract cannot be looked up. Stops the caveat repeating.</description>
+        <developerName>plan_caveat_said</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Plan Caveat Said</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The service plan the caller expressed interest in.</description>
+        <developerName>plan_interest</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Plan Interest</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The postal code of the service address. Drives technician coverage and time zone.</description>
+        <developerName>postal_code</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Postal Code</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Either residential or commercial.</description>
+        <developerName>property_type</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Property Type</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the caller has answered the gas, carbon monoxide, smoke and sparking screen either way. Nothing can be dispatched until this is true.</description>
+        <developerName>safety_screen_done</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Safety Screen Done</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The exact slot token for the appointment window the caller chose.</description>
+        <developerName>selected_slot_id</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Selected Slot Id</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The street address and city of the property needing service.</description>
+        <developerName>service_address</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Service Address</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>One of tune_up, maintenance, inspection, or repair.</description>
+        <developerName>service_type</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Service Type</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once appointment options have been returned and read out to the caller.</description>
+        <developerName>slots_offered</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Slots Offered</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True when a technician was found for the caller&apos;s area.</description>
+        <developerName>technician_available</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Technician Available</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>First name of the assigned technician.</description>
+        <developerName>technician_name</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Technician Name</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <copilotPrimaryLanguage>en_US</copilotPrimaryLanguage>
+    <defaultStdObjForContactIdFltrEnabled>false</defaultStdObjForContactIdFltrEnabled>
+    <entryDialog>Welcome</entryDialog>
+    <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
+    <intentV3Enabled>false</intentV3Enabled>
+    <isScriptCompatibleAgent>true</isScriptCompatibleAgent>
+    <knowledgeActionEnabled>false</knowledgeActionEnabled>
+    <knowledgeFallbackEnabled>false</knowledgeFallbackEnabled>
+    <smallTalkEnabled>false</smallTalkEnabled>
+    <staticPromptsEnabled>false</staticPromptsEnabled>
+    <stopRecPrompts>false</stopRecPrompts>
+    <stopWelcomePrompts>false</stopWelcomePrompts>
+    <surfacesEnabled>false</surfacesEnabled>
+    <toneType>Casual</toneType>
+</BotVersion>

@@ -1,0 +1,54 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "applicationFound" : {
+      "title" : "Application Found",
+      "description" : "True when an application matched. Internal.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "applicationNumber" : {
+      "title" : "Application Number",
+      "description" : "Application number for read-back, digit by digit.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "nextStepSummary" : {
+      "title" : "Next Step Summary",
+      "description" : "What happens once the outstanding item arrives, with a timeline.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "outstandingItem" : {
+      "title" : "Outstanding Item",
+      "description" : "Exactly what is still needed, or empty if nothing is outstanding.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "rateLockSummary" : {
+      "title" : "Rate Lock Summary",
+      "description" : "Rate spoken in words and days remaining on the lock, or empty.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "statusSummary" : {
+      "title" : "Status Summary",
+      "description" : "Stage and where the application stands, one spoken sentence.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

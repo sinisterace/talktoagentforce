@@ -1,0 +1,58 @@
+ACCOUNTS, FEES, AND LIMITS
+
+This document covers everyday checking and savings accounts: the fees that
+can apply, how to avoid them, and the daily limits on moving money. Every
+amount here is written in words on purpose, because this text is read aloud.
+
+MONTHLY MAINTENANCE FEE
+
+Everyday Checking has a monthly maintenance fee of twelve dollars. It is
+waived in any statement period where the account keeps a minimum daily
+balance of fifteen hundred dollars, or receives a direct deposit of five
+hundred dollars or more. Meeting either one waives the fee for that period,
+so most customers with a regular paycheck never pay it.
+
+Savings has no monthly maintenance fee.
+
+OVERDRAFT
+
+An overdraft fee of thirty-four dollars applies when a transaction posts for
+more than the available balance and the bank pays it anyway. There is a
+courtesy threshold: if the account is overdrawn by five dollars or less at
+the end of the day, no overdraft fee is charged. There is a limit of three
+overdraft fees per day. Setting up overdraft protection from a linked
+savings account avoids the fee entirely by transferring the shortfall
+instead.
+
+ATM AND FOREIGN TRANSACTIONS
+
+There is no fee at in-network ATMs. Using an out-of-network ATM is three
+dollars per withdrawal, plus whatever the ATM owner charges. Purchases in a
+foreign currency carry a foreign transaction fee of three percent of the
+amount.
+
+WIRE TRANSFERS
+
+Domestic wires sent before four o'clock Eastern on a business day go out the
+same day. International wires have a cutoff of two o'clock Eastern. A wire
+requested after the cutoff, or on a weekend or holiday, goes out the next
+business day.
+
+DAILY LIMITS
+
+The daily limits on Everyday Checking are five thousand dollars in debit
+card purchases, one thousand dollars in ATM withdrawals, and ten thousand
+dollars in external transfers. These reset at midnight Eastern. A limit can
+be raised temporarily for something like a large purchase by calling in.
+
+SAVINGS WITHDRAWALS
+
+Savings allows six withdrawals or outgoing transfers per statement cycle.
+Beyond that the bank may decline the transfer or, on repeated cycles, move
+the account to checking. Deposits and ATM withdrawals do not count toward
+the six.
+
+STATEMENTS
+
+Statements are issued monthly. Paper statements are two dollars per cycle;
+electronic statements are free and are the default.

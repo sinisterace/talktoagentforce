@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BotVersion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>v5</fullName>
+    <articleAnswersGPTEnabled>false</articleAnswersGPTEnabled>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Thanks for calling. This is the HVAC service agent. How can I help you today?</message>
+                <messageIdentifier>66d30325-b4f2-463a-a80e-1c8890c28798</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>17a87abd-8646-4632-ad8b-42f5933b643d</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>64c58171-2f1b-463b-982a-45f777d50483</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Welcome</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Welcome</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Sorry, something went wrong on my end. Could you say that again?</message>
+                <messageIdentifier>abade556-e772-4b9a-b829-78f5979cca96</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>dab6e242-1eab-4fd9-bdcb-83365fbb20d3</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>6768bc53-0ebe-42fc-a1d8-5e88f798d60f</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Rich_Content_Error_Handling</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Error Handler</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <conversationSystemMessage>
+                <type>Transfer</type>
+            </conversationSystemMessage>
+            <stepIdentifier>6da6adb6-f074-45eb-9f9c-cf3666116fba</stepIdentifier>
+            <type>SystemMessage</type>
+        </botSteps>
+        <developerName>Transfer_To_Agent</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Transfer To Agent</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <citationsEnabled>false</citationsEnabled>
+    <conversationDefinitionPlanners>
+        <genAiPlannerName>HVAC_Service_Voice_Agent_v5</genAiPlannerName>
+    </conversationDefinitionPlanners>
+    <conversationSystemDialogs>
+        <dialog>Rich_Content_Error_Handling</dialog>
+        <type>ErrorHandling</type>
+    </conversationSystemDialogs>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The agent instructions</description>
+        <developerName>AgentScriptInternal_agent_instructions</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Agent Instructions</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>Runtime condition evaluation for if statements</description>
+        <developerName>AgentScriptInternal_condition_1</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Runtime Condition 1</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The next topic to be visited</description>
+        <developerName>AgentScriptInternal_next_topic</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Next Topic</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True when an existing appointment was located.</description>
+        <developerName>appointment_found</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Appointment Found</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The confirmation number of an existing or newly created appointment.</description>
+        <developerName>appointment_number</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Appointment Number</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The phone number the booking is under, digits only. Used to stamp a new visit and to prove ownership before an existing one is changed. Never used to arrange a call back, because this line cannot do that.</description>
+        <developerName>callback_phone</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Callback Phone</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The caller&apos;s first name as they said it.</description>
+        <developerName>caller_name</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Caller Name</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once an existing visit has actually been cancelled or moved. Closes both change actions so a single request cannot be applied twice.</description>
+        <developerName>change_complete</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Change Complete</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Which specialist step currently owns the conversation. Each step stamps this itself on entry, so the router can hand the caller straight back to it on the next turn instead of re-classifying. Never set by reasoning.</description>
+        <developerName>current_flow</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Current Flow</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True only once the caller confirms everyone is outside and emergency services or the gas utility have been called. Starts false so an unanswered hazard can never look resolved.</description>
+        <developerName>hazard_cleared</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Hazard Cleared</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True if the caller reported a gas smell, carbon monoxide, a detector alarm, smoke, burning, sparking or arcing.</description>
+        <developerName>hazard_flag</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Hazard Flag</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The caller&apos;s plain description of what the system is doing or not doing.</description>
+        <developerName>issue_summary</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Issue Summary</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The exact slot token for the window the caller chose to move an existing visit to. Kept apart from the new-booking slot so a token left over from a booking earlier in the call can never move an existing visit.</description>
+        <developerName>new_slot_id</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>New Slot Id</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the caller has been told that plan answers are a what-if because their contract cannot be looked up. Stops the caveat repeating.</description>
+        <developerName>plan_caveat_said</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Plan Caveat Said</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The postal code the coverage or windows lookup actually ran against, reported back by that lookup rather than read from the conversation a second time. Whatever is booked is booked for this postal code, in its time zone.</description>
+        <developerName>postal_code</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Postal Code</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>Either residential or commercial.</description>
+        <developerName>property_type</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Property Type</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the windows an existing visit can move to have been returned. Nothing can be moved before this, because the caller has to have chosen from real windows rather than named a time.</description>
+        <developerName>reschedule_options_offered</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Reschedule Options Offered</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True from the turn after the move-to windows were returned. Same reason as slots_read_out: the offered flag flips inside the reply that fetches them, so it cannot say whether they were spoken.</description>
+        <developerName>reschedule_options_read_out</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Reschedule Options Read Out</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once the caller has answered the gas, carbon monoxide, smoke and sparking screen either way. Nothing can be dispatched until this is true.</description>
+        <developerName>safety_screen_done</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Safety Screen Done</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The exact slot token for the appointment window the caller chose.</description>
+        <developerName>selected_slot_id</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Selected Slot Id</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>The street address and city of the property needing service.</description>
+        <developerName>service_address</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Service Address</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>One of tune_up, maintenance, inspection, or repair.</description>
+        <developerName>service_type</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Service Type</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True once appointment options have been returned by the windows lookup.</description>
+        <developerName>slots_offered</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Slots Offered</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True from the turn after the windows were returned, the first turn the caller could have heard them. Separate from slots_offered, which flips inside the reply that fetches them and so cannot say whether they were spoken.</description>
+        <developerName>slots_read_out</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Slots Read Out</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <description>True when a technician was found for the caller&apos;s area.</description>
+        <developerName>technician_available</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Technician Available</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <copilotPrimaryLanguage>en_US</copilotPrimaryLanguage>
+    <defaultStdObjForContactIdFltrEnabled>false</defaultStdObjForContactIdFltrEnabled>
+    <entryDialog>Welcome</entryDialog>
+    <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
+    <intentV3Enabled>false</intentV3Enabled>
+    <isScriptCompatibleAgent>true</isScriptCompatibleAgent>
+    <knowledgeActionEnabled>false</knowledgeActionEnabled>
+    <knowledgeFallbackEnabled>false</knowledgeFallbackEnabled>
+    <smallTalkEnabled>false</smallTalkEnabled>
+    <staticPromptsEnabled>false</staticPromptsEnabled>
+    <stopRecPrompts>false</stopRecPrompts>
+    <stopWelcomePrompts>false</stopWelcomePrompts>
+    <surfacesEnabled>false</surfacesEnabled>
+    <toneType>Casual</toneType>
+</BotVersion>
